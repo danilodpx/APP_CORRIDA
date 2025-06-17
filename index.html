@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilha de Treinamento de Corrida</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏃‍♂️ Planilha de Treinamento de Corrida</h1>
+            <p>Controle completo dos seus treinos e análise de performance</p>
+        </div>
+
+        <div class="content">
+            <!-- Seção de Registro de Treino -->
+            <div class="section" id="secao-registro">
+                <h2>Registrar Sessão de Treino</h2>
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="tipoTreino">Tipo de Treino</label>
+                        <select id="tipoTreino">
+                            <option value="Corrida Longa">Corrida Longa</option>
+                            <option value="Intervalado">Intervalado</option>
+                            <option value="Tiros">Tiros</option>
+                            <option value="Fartlek">Fartlek</option>
+                            <option value="Tempo Run">Tempo Run</option>
+                            <option value="Easy Run">Easy Run</option>
+                            <option value="Recovery">Recovery</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="distancia">Distância (metros)</label>
+                        <input type="number" id="distancia" placeholder="Ex: 5000" min="1">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="horas">Tempo</label>
+                        <div class="time-inputs">
+                            <input type="number" id="horas" placeholder="Horas" min="0" max="23">
+                            <input type="number" id="minutos" placeholder="Min" min="0" max="59">
+                            <input type="number" id="segundos" placeholder="Seg" min="0" max="59">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" id="btnAdicionarSessao">➕ Adicionar Sessão</button>
+                <button class="btn btn-danger" id="btnLimparTudo">🗑️ Limpar Tudo</button>
+            </div>
+
+            <!-- Tabela de Sessões -->
+            <div class="section" id="secao-sessoes">
+                <h2>Sessões do Dia</h2>
+                <table class="sessions-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Distância (m)</th>
+                            <th>Tempo</th>
+                            <th>Pace</th>
+                            <th>Velocidade (km/h)</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessoesTabela">
+                        <tr>
+                            <td colspan="6" class="empty-state">Nenhuma sessão registrada ainda</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Estatísticas do Dia -->
+            <div class="section" id="secao-estatisticas">
+                <h2>Estatísticas do Dia</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Tempo Total</h3>
+                        <div class="value" id="tempoTotal">00:00:00</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Distância Total</h3>
+                        <div class="value" id="distanciaTotal">0 m</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Distância Mínima</h3>
+                        <div class="value" id="distanciaMin">- m</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Distância Máxima</h3>
+                        <div class="value" id="distanciaMax">- m</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pace Médio</h3>
+                        <div class="value" id="paceMedio">--:--</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pace Mínimo</h3>
+                        <div class="value" id="paceMin">--:--</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pace Máximo</h3>
+                        <div class="value" id="paceMax">--:--</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Velocidade Média</h3>
+                        <div class="value" id="velocidadeMedia">0 km/h</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculadora de Performance -->
+            <div class="section" id="secao-calculadora">
+                <h2>Calculadora de Performance</h2>
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="distanciaRef">Distância de Referência (metros)</label>
+                        <input type="number" id="distanciaRef" placeholder="Ex: 5000" min="1">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="horasRef">Tempo de Referência</label>
+                        <div class="time-inputs">
+                            <input type="number" id="horasRef" placeholder="Horas" min="0" max="23">
+                            <input type="number" id="minutosRef" placeholder="Min" min="0" max="59">
+                            <input type="number" id="segundosRef" placeholder="Seg" min="0" max="59">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" id="btnCalcularPrevisoes">📊 Calcular Previsões</button>
+
+                <div class="predictions-grid" id="previsoesGrid" style="display: none;">
+                    <div class="prediction-card">
+                        <h4>100m</h4>
+                        <div class="time" id="prev100m">--:--</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h4>200m</h4>
+                        <div class="time" id="prev200m">--:--</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h4>400m</h4>
+                        <div class="time" id="prev400m">--:--</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h4>5km</h4>
+                        <div class="time" id="prev5km">--:--</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h4>10km</h4>
+                        <div class="time" id="prev10km">--:--</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h4>15km</h4>
+                        <div class="time" id="prev15km">--:--</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h4>21km</h4>
+                        <div class="time" id="prev21km">--:--</div>
+                    </div>
+                    <div class="prediction-card">
+                        <h4>42km</h4>
+                        <div class="time" id="prev42km">--:--</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid" id="performanceStats" style="display: none; margin-top: 20px;">
+                    <div class="stat-card">
+                        <h3>Velocidade</h3>
+                        <div class="value" id="velocidadeRef">0 km/h</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pace</h3>
+                        <div class="value" id="paceRef">--:--</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript externo -->
+    <script src="main.js"></script>
+</body>
+</html>
